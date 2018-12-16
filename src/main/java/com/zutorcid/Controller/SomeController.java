@@ -33,8 +33,6 @@ public class SomeController {
         for (int i=0;i<praca.getResult().size();i++)
         {
            oneOrcidIdentifier.append("Path: " + praca.getResult().get(i).getOrcidIdentifier().getPath()+"\n");
-
-
         }
 
         return oneOrcidIdentifier.toString();
