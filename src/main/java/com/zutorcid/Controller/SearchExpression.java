@@ -8,6 +8,7 @@ public class SearchExpression {
         System.out.print("Wpisz co chcesz wyszukac: ");
         Scanner sc = new Scanner(System.in);
         expression = sc.nextLine();
+        sc.close();
 
         return expression;
     }
