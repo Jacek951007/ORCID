@@ -1,5 +1,6 @@
 package com.zutorcid.Controller;
 
+import com.zutorcid.Person.GetPersonData;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -8,7 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.zutorcid.Person.*;
 @RestController
 public class SomeController {
 
@@ -25,7 +26,7 @@ public class SomeController {
         StringBuilder oneOrcidIdentifier = new StringBuilder();
 
 
-      /* UriComponents uriComponents = UriComponentsBuilder.newInstance()
+    /*   UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
              //   .queryParam("Accept", "application/json")
