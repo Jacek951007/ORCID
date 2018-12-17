@@ -25,7 +25,7 @@ public class SomeController {
         StringBuilder oneOrcidIdentifier = new StringBuilder();
 
 
-       UriComponents uriComponents = UriComponentsBuilder.newInstance()
+      /* UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
              //   .queryParam("Accept", "application/json")
@@ -41,7 +41,7 @@ public class SomeController {
             oneOrcidIdentifier.delete(0,oneOrcidIdentifier.length());
         }
         String firstPath = paths.get(0);
-        firstPath.replaceAll("\\s+","");
+        firstPath.replaceAll("\\s+","");*/
 
        UriComponents uriComponent = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/0000-0002-3738-0938/person")
