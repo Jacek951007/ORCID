@@ -20,13 +20,15 @@ public class SomeController {
     Token myToken = new Token();
     String token = myToken.getToken();
 
+    String fullData;
+
     SearchExpression myExpression = new SearchExpression();
     String expression = myExpression.getExpression();
     List<String> paths = new ArrayList<String>();
         StringBuilder oneOrcidIdentifier = new StringBuilder();
 
 
-    /*   UriComponents uriComponents = UriComponentsBuilder.newInstance()
+       UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
              //   .queryParam("Accept", "application/json")
@@ -35,26 +37,27 @@ public class SomeController {
         GetContentDTO orcidPath = new RestTemplate().getForObject(uriComponents.toUriString(), GetContentDTO.class);
 
 
+
         for (int i=0;i<orcidPath.getResult().size();i++)
         {
-            oneOrcidIdentifier.append("Path: " + orcidPath.getResult().get(i).getOrcidIdentifier().getPath()+"\n");
+            oneOrcidIdentifier.append(orcidPath.getResult().get(i).getOrcidIdentifier().getPath());
             paths.add(oneOrcidIdentifier.toString());
+           // paths.get(i).replace("\\s+","");
             oneOrcidIdentifier.delete(0,oneOrcidIdentifier.length());
         }
+
+
+
+
+
         String firstPath = paths.get(0);
-        firstPath.replaceAll("\\s+","");*/
+        Names names = new Names();
+        for(int i=0;i< paths.size();i++) {
+            fullData = names.getName(paths.get(0));
+        }
 
-       UriComponents uriComponent = UriComponentsBuilder.newInstance()
-                .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/0000-0002-3738-0938/person")
-                .queryParam("Authorization", token)
-                .build(true);
-        GetPersonData orcidData = new RestTemplate().getForObject(uriComponent.toUriString(), GetPersonData.class);
 
-       System.out.print(orcidData.getName().getFamilyName().toString());
-
-        String onePath = orcidData.getName().getFamilyName().getValue();
-
-        return onePath;
+        return fullData;
     }
 }
 
