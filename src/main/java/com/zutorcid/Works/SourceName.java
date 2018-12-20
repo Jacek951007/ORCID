@@ -1,8 +1,7 @@
 
-package com.zutorcid.Controller;
+package com.zutorcid.Works;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -13,36 +12,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "result",
-    "num-found"
+    "value"
 })
-public class GetContentDTO {
+public class SourceName {
 
-    @JsonProperty("result")
-    private List<Result> result = null;
-    @JsonProperty("num-found")
-    private Integer numFound;
+    @JsonProperty("value")
+    private String value;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("result")
-    public List<Result> getResult() {
-        return result;
+    @JsonProperty("value")
+    public String getValue() {
+        return value;
     }
 
-    @JsonProperty("result")
-    public void setResult(List<Result> result) {
-        this.result = result;
-    }
-
-    @JsonProperty("num-found")
-    public Integer getNumFound() {
-        return numFound;
-    }
-
-    @JsonProperty("num-found")
-    public void setNumFound(Integer numFound) {
-        this.numFound = numFound;
+    @JsonProperty("value")
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @JsonAnyGetter

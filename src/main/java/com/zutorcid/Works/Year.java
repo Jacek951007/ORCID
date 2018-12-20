@@ -1,5 +1,5 @@
 
-package com.zutorcid.Controller;
+package com.zutorcid.Works;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,23 +12,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "orcid-identifier"
+    "value"
 })
-public class Result {
+public class Year {
 
-    @JsonProperty("orcid-identifier")
-    private OrcidIdentifier orcidIdentifier;
+    @JsonProperty("value")
+    private String value;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("orcid-identifier")
-    public OrcidIdentifier getOrcidIdentifier() {
-        return orcidIdentifier;
+    @JsonProperty("value")
+    public String getValue() {
+        return value;
     }
 
-    @JsonProperty("orcid-identifier")
-    public void setOrcidIdentifier(OrcidIdentifier orcidIdentifier) {
-        this.orcidIdentifier = orcidIdentifier;
+    @JsonProperty("value")
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @JsonAnyGetter

@@ -1,5 +1,5 @@
 
-package com.zutorcid.Controller;
+package com.zutorcid.Works;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,49 +12,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "uri",
-    "path",
-    "host"
+    "value"
 })
-public class OrcidIdentifier {
+public class ExternalIdUrl {
 
-    @JsonProperty("uri")
-    private String uri;
-    @JsonProperty("path")
-    private String path;
-    @JsonProperty("host")
-    private String host;
+    @JsonProperty("value")
+    private String value;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("uri")
-    public String getUri() {
-        return uri;
+    @JsonProperty("value")
+    public String getValue() {
+        return value;
     }
 
-    @JsonProperty("uri")
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    @JsonProperty("path")
-    public String getPath() {
-        return path;
-    }
-
-    @JsonProperty("path")
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    @JsonProperty("host")
-    public String getHost() {
-        return host;
-    }
-
-    @JsonProperty("host")
-    public void setHost(String host) {
-        this.host = host;
+    @JsonProperty("value")
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @JsonAnyGetter
