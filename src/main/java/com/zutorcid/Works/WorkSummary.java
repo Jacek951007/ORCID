@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class WorkSummary {
 
     @JsonProperty("put-code")
-    private Long putCode;
+    private Integer putCode;
     @JsonProperty("created-date")
     private CreatedDate createdDate;
     @JsonProperty("last-modified-date")
@@ -52,12 +52,12 @@ public class WorkSummary {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("put-code")
-    public Long getPutCode() {
+    public int getPutCode() {
         return putCode;
     }
 
     @JsonProperty("put-code")
-    public void setPutCode(Long putCode) {
+    public void setPutCode(Integer putCode) {
         this.putCode = putCode;
     }
 

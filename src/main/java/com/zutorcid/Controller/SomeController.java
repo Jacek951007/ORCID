@@ -1,6 +1,7 @@
 package com.zutorcid.Controller;
 
 import com.zutorcid.Path.GetContentDTO;
+import com.zutorcid.Works.Year;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -20,13 +21,17 @@ public class SomeController {
     Token myToken = new Token();
     String token = myToken.getToken();
 
+    Years.setYears();
+
     SearchExpression myExpression = new SearchExpression();
     String expression = myExpression.getExpression();
+
 
 
     List<String> paths = new ArrayList<String>();
         List<String> fullData = new ArrayList<String>();
         StringBuilder oneOrcidIdentifier = new StringBuilder();
+
 
 
        UriComponents uriComponents = UriComponentsBuilder.newInstance()
@@ -54,6 +59,7 @@ public class SomeController {
       GetWorks works = new GetWorks();
 
         fullData.add("Nazwa: " + names.getName(paths.get(0))+", numer Orcid: "+paths.get(0) +", title: " +works.getWorks(paths.get(0)));
+
 
 
         //look for 0000-0003-4628-3678 to find works
