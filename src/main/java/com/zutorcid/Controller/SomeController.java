@@ -26,13 +26,13 @@ public class SomeController {
     SearchExpression myExpression = new SearchExpression();
     String expression = myExpression.getExpression();
 
-
+    String worksWWholeString;
 
     List<String> paths = new ArrayList<String>();
         List<String> fullData = new ArrayList<String>();
         StringBuilder oneOrcidIdentifier = new StringBuilder();
 
-
+    List<String> putCodes = new ArrayList();
 
        UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
@@ -58,13 +58,27 @@ public class SomeController {
 
       GetWorks works = new GetWorks();
 
-        fullData.add("Nazwa: " + names.getName(paths.get(0))+", numer Orcid: "+paths.get(0) +", title: " +works.getWorks(paths.get(0)));
+        fullData.add("Nazwa: " + names.getName(paths.get(0))+", numer Orcid: "+paths.get(0) +", codes: " +works.getWorks(paths.get(0)));
+
+        worksWWholeString = works.getWorks(paths.get(0));
+
+        StringBuilder onecode = new StringBuilder();
+
+        for(int i=0;i<worksWWholeString.length();i++){
+            if(Character.isDigit(worksWWholeString.charAt(i))){
+                onecode.append(worksWWholeString.charAt(i));
+            }
+            else if(worksWWholeString.charAt(i)==','){
+                putCodes.add(onecode.toString());
+                onecode.delete(0,onecode.length());
+            }
+        }
 
 
 
         //look for 0000-0003-4628-3678 to find works
         //relations 0000-0003-4243-1776  or hyeonwoo
-        return fullData.toString();
+        return worksWWholeString;
     }
 }
 
