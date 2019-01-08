@@ -18,51 +18,67 @@ public class SomeController {
     @RequestMapping("/")
     public String index() {
 
-    Token myToken = new Token();
-    String token = myToken.getToken();
 
-    Years.setYears();
 
-    SearchExpression myExpression = new SearchExpression();
-    String expression = myExpression.getExpression();
+        //Token from txt file
+        Token myToken = new Token();
+        String token = myToken.getToken();
 
-    String worksWWholeString;
+        // seyt years about articles
+        Years.setYears();
 
-    List<String> paths = new ArrayList<String>();
+        // expression to find
+        SearchExpression myExpression = new SearchExpression();
+        String expression = myExpression.getExpression();
+
+
+
+        String worksWWholeString;
+
+        // Path=orcid which i need to work with api
+        List<String> paths = new ArrayList<String>();
+
+        // full data about authors
         List<String> fullData = new ArrayList<String>();
-        StringBuilder oneOrcidIdentifier = new StringBuilder();
 
-    List<String> putCodes = new ArrayList();
+        // putcodes = variable of single article, i need for connect with api
+        List<String> putCodes = new ArrayList();
 
-       UriComponents uriComponents = UriComponentsBuilder.newInstance()
+
+        // connect with api and get path,host
+
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
-             //   .queryParam("Accept", "application/json")
+                //   .queryParam("Accept", "application/json")
                 .queryParam("q", expression)
                 .build(true);
         GetContentDTO orcidPath = new RestTemplate().getForObject(uriComponents.toUriString(), GetContentDTO.class);
 
 
-
+        // Add paths to the list
         for (int i=0;i<orcidPath.getResult().size();i++)
         {
-            oneOrcidIdentifier.append(orcidPath.getResult().get(i).getOrcidIdentifier().getPath());
-            paths.add(oneOrcidIdentifier.toString());
-            oneOrcidIdentifier.delete(0,oneOrcidIdentifier.length());
+            paths.add(orcidPath.getResult().get(i).getOrcidIdentifier().getPath().toString());
+        }
+        // Add names to the list
+        Names names = new Names();
+        for(int i=0;i< paths.size();i++) {
+            fullData.add(names.getName(paths.get(i)));
         }
 
-        Names names = new Names();
-      /*  for(int i=0;i< paths.size();i++) {
-            fullData.add(names.getName(paths.get(i)));
-        }*/
+        System.out.print(fullData);
 
-      GetWorks works = new GetWorks();
+        GetWorks works = new GetWorks();
 
-        fullData.add("Nazwa: " + names.getName(paths.get(0))+", numer Orcid: "+paths.get(0) +", codes: " +works.getWorks(paths.get(0)));
+
+
+        //fullData.add("Nazwa: " + names.getName(paths.get(0))+", numer Orcid: "+paths.get(0) +", codes: " +works.getWorks(paths.get(0)));
 
         worksWWholeString = works.getWorks(paths.get(0));
 
         StringBuilder onecode = new StringBuilder();
+
 
         for(int i=0;i<worksWWholeString.length();i++){
             if(Character.isDigit(worksWWholeString.charAt(i))){
@@ -73,12 +89,14 @@ public class SomeController {
                 onecode.delete(0,onecode.length());
             }
         }
-
-
+        String aboutOneArticle = "";
+        Work work = new Work();
+       // for(int i=0;i<putCodes.size();i++){
+            aboutOneArticle += work.workData(paths.get(0),putCodes.get(0)) + ", ";
+      //  }
 
         //look for 0000-0003-4628-3678 to find works
         //relations 0000-0003-4243-1776  or hyeonwoo
-        return worksWWholeString;
+        return aboutOneArticle;
     }
 }
-

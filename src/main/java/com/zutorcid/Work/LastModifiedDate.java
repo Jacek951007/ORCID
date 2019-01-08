@@ -17,17 +17,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class LastModifiedDate {
 
     @JsonProperty("value")
-    private Integer value;
+    private Long value;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("value")
-    public Integer getValue() {
+    public Long getValue() {
         return value;
     }
 
     @JsonProperty("value")
-    public void setValue(Integer value) {
+    public void setValue(Long value) {
         this.value = value;
     }
 

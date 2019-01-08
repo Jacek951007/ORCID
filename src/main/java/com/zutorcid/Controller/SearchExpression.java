@@ -10,6 +10,10 @@ public class SearchExpression {
         expression = sc.nextLine();
         sc.close();
 
+        expression = expression.replaceAll("ł","%C5%82");
+        expression = expression.replace(" ","%20");
+        //expression.replaceAll("ą","%c4%85");
+
         return expression;
     }
 }

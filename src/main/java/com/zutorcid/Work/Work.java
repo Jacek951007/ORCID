@@ -39,7 +39,7 @@ public class Work {
     @JsonProperty("source")
     private Source source;
     @JsonProperty("put-code")
-    private Integer putCode;
+    private Long putCode;
     @JsonProperty("path")
     private String path;
     @JsonProperty("title")
@@ -100,12 +100,12 @@ public class Work {
     }
 
     @JsonProperty("put-code")
-    public Integer getPutCode() {
+    public Long getPutCode() {
         return putCode;
     }
 
     @JsonProperty("put-code")
-    public void setPutCode(Integer putCode) {
+    public void setPutCode(Long putCode) {
         this.putCode = putCode;
     }
 
