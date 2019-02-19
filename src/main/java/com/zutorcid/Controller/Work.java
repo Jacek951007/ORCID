@@ -31,7 +31,8 @@ public class Work {
 
         wholeDataAboutWork = "Tytuł:" + orcidWork.getBulk().get(0).getWork().getTitle().getTitle().getValue().toString() +
          ", Krótki opis: " + orcidWork.getBulk().get(0).getWork().getShortDescription() +
-         ", DOI: " + orcidWork.getBulk().get(0).getWork().getExternalIds().getExternalId().get(0).getExternalIdValue();
+         ", DOI: " + orcidWork.getBulk().get(0).getWork().getExternalIds().getExternalId().get(0).getExternalIdValue()+ " dane"
+                + orcidWork.getBulk().get(0).getWork().getType().toString();
 
 
          for (int i=0;i<orcidWork.getBulk().get(0).getWork().getContributors().getContributor().size();i++) {

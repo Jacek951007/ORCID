@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import com.zutorcid.Path.*;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,7 @@ import java.util.List;
 public class SomeController {
 
     @RequestMapping("/")
-    public String index() {
+    public String index() throws UnsupportedEncodingException {
 
 
 
@@ -24,7 +27,7 @@ public class SomeController {
         Token myToken = new Token();
         String token = myToken.getToken();
 
-        // seyt years about articles
+         //seyt years about articles
         Years.setYears();
 
         // expression to find
@@ -50,24 +53,32 @@ public class SomeController {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
-                //   .queryParam("Accept", "application/json")
                 .queryParam("q", expression)
-                .build(true);
+                .build();
         GetContentDTO orcidPath = new RestTemplate().getForObject(uriComponents.toUriString(), GetContentDTO.class);
 
 
+
+        System.out.print(expression);
+        System.out.println(orcidPath.getResult());
+        if("https://pub.sandbox.orcid.org/v2.1/search?q=ma%C5%82achowski".equals(uriComponents.toUriString())   ){
+            System.out.println("yaa");
+        }
+        else{
+            System.out.println(uriComponents.toUriString());
+        }
         // Add paths to the list
         for (int i=0;i<orcidPath.getResult().size();i++)
         {
             paths.add(orcidPath.getResult().get(i).getOrcidIdentifier().getPath().toString());
         }
         // Add names to the list
-        Names names = new Names();
+       Names names = new Names();
         for(int i=0;i< paths.size();i++) {
-            fullData.add(names.getName(paths.get(i)));
+            fullData.add("Path: "+paths.get(i)+", Nazwa"+names.getName(paths.get(i)));
         }
 
-        System.out.print(fullData);
+        //System.out.print(fullData);
 
         GetWorks works = new GetWorks();
 
@@ -91,12 +102,13 @@ public class SomeController {
         }
         String aboutOneArticle = "";
         Work work = new Work();
-       // for(int i=0;i<putCodes.size();i++){
+        for(int i=0;i<putCodes.size();i++){
             aboutOneArticle += work.workData(paths.get(0),putCodes.get(0)) + ", ";
-      //  }
+        }
 
         //look for 0000-0003-4628-3678 to find works
         //relations 0000-0003-4243-1776  or hyeonwoo
-        return aboutOneArticle;
+        System.out.print(expression);
+        return paths.toString();
     }
 }
