@@ -1,15 +1,13 @@
-package com.zutorcid.Controller;
+package com.zutorcid.App;
 
+import com.zutorcid.Controller.*;
 import com.zutorcid.Path.GetContentDTO;
-import com.zutorcid.Works.Year;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.util.UriComponents;
 
-import com.zutorcid.Path.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -54,7 +52,7 @@ public class SomeController {
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
                 .queryParam("q", expression)
-                .build();
+                .build(true);
         GetContentDTO orcidPath = new RestTemplate().getForObject(uriComponents.toUriString(), GetContentDTO.class);
 
 
