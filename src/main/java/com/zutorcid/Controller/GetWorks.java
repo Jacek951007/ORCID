@@ -17,7 +17,7 @@ public class GetWorks {
         List<Integer> putCode = new ArrayList<>();
 
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/" + path + "/works")
+                .scheme("https").host("pub.orcid.org").path("/v2.1/" + path + "/works")
                 .queryParam("Authorization", token)
                 .build(true);
        GetAllWorks ws = new RestTemplate().getForObject(uriComponents.toUriString(), GetAllWorks.class);
@@ -26,9 +26,9 @@ public class GetWorks {
        int yearEnd = Years.getSecondYear();
 
     for(int i=0;i<ws.getGroup().size();i++) {
-       if(Integer.valueOf(ws.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue())>yearStart & Integer.valueOf(ws.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue())<yearEnd) {
+       //if(Integer.valueOf(ws.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue())>=yearStart && Integer.valueOf(ws.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue())<=yearEnd) {
            putCode.add(Integer.valueOf(ws.getGroup().get(i).getWorkSummary().get(0).getPutCode()));
-        }
+       // }
     }
     return putCode.toString();
     }

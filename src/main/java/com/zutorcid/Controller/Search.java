@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Search {
     private String expression;
-    private List<String> foundElement;
+    private String foundElement;
 
     public String getExpression() {
         return expression;
@@ -14,11 +14,11 @@ public class Search {
         this.expression = expression;
     }
 
-    public List<String> getFoundElement() {
+    public String getFoundElement() {
         return foundElement;
     }
 
-    public void setFoundElement(List<String> foundElement) {
+    public void setFoundElement(String foundElement) {
         this.foundElement = foundElement;
     }
 }

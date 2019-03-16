@@ -20,7 +20,7 @@ public class Names {
         String token = myToken.getToken();
 
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/"+path+"/person")
+                .scheme("https").host("pub.orcid.org").path("/v2.1/"+path+"/person")
                 .queryParam("Authorization", token)
                 .build(true);
         GetPersonData orcidData = new RestTemplate().getForObject(uriComponents.toUriString(), GetPersonData.class);

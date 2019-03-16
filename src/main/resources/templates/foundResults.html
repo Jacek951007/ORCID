@@ -6,7 +6,11 @@
 </head>
 <body>
 <h1>Results</h1>
-<p th:text="'Found Result: ' + ${search.foundElement}"></p>
+<div th:each="work: ${session.works}">
+    <p th:text="${work.bulk[0].work.title.title.value}"> </p>
+    <p th:text="${work.bulk[0].work.journalTitle.value}"> </p>
+</div>
+
 <a href="/search">Search another member</a>
 </body>
 </html>

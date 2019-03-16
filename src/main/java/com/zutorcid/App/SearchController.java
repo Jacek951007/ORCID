@@ -1,5 +1,9 @@
-package com.zutorcid.Controller;
+package com.zutorcid.App;
 
+import com.zutorcid.Controller.Names;
+import com.zutorcid.Controller.PersonData;
+import com.zutorcid.Controller.Search;
+import com.zutorcid.Controller.Token;
 import com.zutorcid.Path.GetContentDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +22,7 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-    private List<String> namesList;
+    private List<String> namesList = new ArrayList<>();
     Names names = new Names();
 
     Token myToken = new Token();
@@ -34,9 +39,11 @@ public class SearchController {
     public String submitSearch(@ModelAttribute Search search){
 
 
+        List<PersonData> person = new ArrayList<>();
+
+
 
         String expression = search.getExpression();
-        System.out.println(expression);
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
@@ -45,13 +52,12 @@ public class SearchController {
         GetContentDTO orcidPath = new RestTemplate().getForObject(uriComponents.toUriString(), GetContentDTO.class);
 
 
-        for(int i=0;i<orcidPath.getResult().size();i++) {
-            System.out.println(names.getName(orcidPath.getResult().get(i).getOrcidIdentifier().getPath()));
-            namesList.add(names.getName(orcidPath.getResult().get(i).getOrcidIdentifier().getPath()));
-            
+        for (int i=0;i<orcidPath.getResult().size();i++)
+        {
+            namesList.add(orcidPath.getResult().get(i).getOrcidIdentifier().getPath());
         }
-        System.out.println(namesList);
-        search.setFoundElement(namesList);
+
+        search.setFoundElement(namesList.get(0));
         return "foundResults";
     }
 
