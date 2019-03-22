@@ -52,8 +52,6 @@ public class SearchController {
         }
 
        session.setAttribute("authors",allAuthors);
-
-
         return "foundAuthors";
     }
 
