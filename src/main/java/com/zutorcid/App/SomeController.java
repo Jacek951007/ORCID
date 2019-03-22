@@ -1,5 +1,6 @@
-package com.zutorcid.Controller;
+package com.zutorcid.App;
 
+import com.zutorcid.Controller.*;
 import com.zutorcid.Path.GetContentDTO;
 import com.zutorcid.Work.GetWork;
 import org.springframework.stereotype.Controller;
@@ -99,7 +100,7 @@ public class SomeController {
             allWorks.add(work.workData(paths.get(3),putCodes.get(1)));
             aboutOneArticle += work.workData(paths.get(3),putCodes.get(1)) + ", ";
         }
-        String kupa = "aaaa";
+
         Session.setAttribute("works",allWorks);
         //look for 0000-0003-4628-3678 to find works
         //relations 0000-0003-4243-1776  or hyeonwoo

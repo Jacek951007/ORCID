@@ -1,20 +1,14 @@
 package com.zutorcid.Controller;
 
-import com.zutorcid.Person.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.zutorcid.Path.GetContentDTO;
 import com.zutorcid.Person.GetPersonData;
-import com.zutorcid.Works.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 
 public class Names {
-    public String getName(String path){
+    public GetPersonData getName(String path){
 
         Token myToken = new Token();
         String token = myToken.getToken();
@@ -23,15 +17,15 @@ public class Names {
                 .scheme("https").host("pub.orcid.org").path("/v2.1/"+path+"/person")
                 .queryParam("Authorization", token)
                 .build(true);
-        GetPersonData orcidData = new RestTemplate().getForObject(uriComponents.toUriString(), GetPersonData.class);
+        GetPersonData dataAboutAuthors = new RestTemplate().getForObject(uriComponents.toUriString(), GetPersonData.class);
 
 
-        String names = orcidData.getName().getGivenNames().getValue().toString()+" "+orcidData.getName().getFamilyName().getValue().toString();
+     //   String names = dataAboutAuthors.getName().getGivenNames().getValue().toString()+" "+dataAboutAuthors.getName().getFamilyName().getValue().toString();
 
 
 
 
-        return names;
+        return dataAboutAuthors;
     }
 
 }

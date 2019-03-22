@@ -1,10 +1,7 @@
-package com.zutorcid.App;
+package com.zutorcid.Controller;
 
-import com.zutorcid.Controller.Names;
-import com.zutorcid.Controller.PersonData;
-import com.zutorcid.Controller.Search;
-import com.zutorcid.Controller.Token;
 import com.zutorcid.Path.GetContentDTO;
+import com.zutorcid.Person.GetPersonData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +20,6 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-    private List<String> namesList = new ArrayList<>();
-    Names names = new Names();
 
     Token myToken = new Token();
     String token = myToken.getToken();
@@ -36,16 +32,14 @@ public class SearchController {
     }
 
     @PostMapping("/foundResults")
-    public String submitSearch(@ModelAttribute Search search){
+    public String submitSearch(@ModelAttribute Search search, HttpSession session){
 
 
-        List<PersonData> person = new ArrayList<>();
-
-
-
+        Names names = new Names();
+        List<GetPersonData> allAuthors = new ArrayList<>();
         String expression = search.getExpression();
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https").host("pub.sandbox.orcid.org").path("/v2.1/search")
+                .scheme("https").host("pub.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
                 .queryParam("q", expression)
                 .build(true);
@@ -54,11 +48,13 @@ public class SearchController {
 
         for (int i=0;i<orcidPath.getResult().size();i++)
         {
-            namesList.add(orcidPath.getResult().get(i).getOrcidIdentifier().getPath());
+            allAuthors.add(names.getName(orcidPath.getResult().get(i).getOrcidIdentifier().getPath()));
         }
 
-        search.setFoundElement(namesList.get(0));
-        return "foundResults";
+       session.setAttribute("authors",allAuthors);
+
+
+        return "foundAuthors";
     }
 
 
