@@ -5,6 +5,7 @@ import java.util.List;
 public class Search {
     private String expression;
     private String foundElement;
+private String path;
 
     public String getExpression() {
         return expression;
@@ -20,5 +21,13 @@ public class Search {
 
     public void setFoundElement(String foundElement) {
         this.foundElement = foundElement;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

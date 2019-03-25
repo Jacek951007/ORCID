@@ -1,5 +1,8 @@
 package com.zutorcid.Controller;
 
+import com.zutorcid.Controller.Names;
+import com.zutorcid.Controller.Search;
+import com.zutorcid.Controller.Token;
 import com.zutorcid.Path.GetContentDTO;
 import com.zutorcid.Person.GetPersonData;
 import org.springframework.stereotype.Controller;
@@ -31,7 +34,7 @@ public class SearchController {
         return "search";
     }
 
-    @PostMapping("/foundResults")
+    @PostMapping("/foundAuthors")
     public String submitSearch(@ModelAttribute Search search, HttpSession session){
 
 
@@ -50,10 +53,13 @@ public class SearchController {
         {
             allAuthors.add(names.getName(orcidPath.getResult().get(i).getOrcidIdentifier().getPath()));
         }
-
+        String path="";
        session.setAttribute("authors",allAuthors);
+        session.setAttribute("path", path);
         return "foundAuthors";
     }
+    
+
 
 
 

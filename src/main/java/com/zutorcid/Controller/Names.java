@@ -23,8 +23,6 @@ public class Names {
      //   String names = dataAboutAuthors.getName().getGivenNames().getValue().toString()+" "+dataAboutAuthors.getName().getFamilyName().getValue().toString();
 
 
-
-
         return dataAboutAuthors;
     }
 
