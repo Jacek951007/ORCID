@@ -35,9 +35,7 @@ public class SearchController {
     }
 
     @PostMapping("/foundAuthors")
-    public String submitSearch(@ModelAttribute Search search, HttpSession session){
-
-
+    public String aboutAuthors(@ModelAttribute Search search, HttpSession session){
         Names names = new Names();
         List<GetPersonData> allAuthors = new ArrayList<>();
         String expression = search.getExpression();
@@ -58,9 +56,15 @@ public class SearchController {
         session.setAttribute("path", path);
         return "foundAuthors";
     }
-    
+
+    @PostMapping("/dataAboutAuthor")
+    public String aboutMyAuthor(@ModelAttribute Search search, HttpSession session ) {
+    String isitWotk = "dsdsa";
+    isitWotk = search.getPath();
+    session.setAttribute("dsa",isitWotk);
+
+        return "dataAboutAuthor";
+    }
 
 
-
-
-}
+    }

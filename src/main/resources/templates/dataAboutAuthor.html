@@ -5,13 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Authors</h1>
+<h1>About author</h1>
 
-<div th:each="names: ${session.authors}">
-
-        <p  th:text="'Name: ' + ${names.getName().getGivenNames().getValue()} +' '+ ${names.getName().getFamilyName().getValue()}
-     +', ORCID ID: '+${names.getName().getPath()}"> </p>
-</div>
+<p th:text="'id: ' + ${session.dsa}"></p>
 
 <a href="/search">Search another member</a>
 </body>
