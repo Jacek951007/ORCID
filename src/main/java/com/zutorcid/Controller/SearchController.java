@@ -1,8 +1,6 @@
 package com.zutorcid.Controller;
 
-import com.zutorcid.Controller.Names;
-import com.zutorcid.Controller.Search;
-import com.zutorcid.Controller.Token;
+import com.zutorcid.Employments.GetEmployments;
 import com.zutorcid.Path.GetContentDTO;
 import com.zutorcid.Person.GetPersonData;
 import org.springframework.stereotype.Controller;
@@ -59,10 +57,42 @@ public class SearchController {
 
     @PostMapping("/dataAboutAuthor")
     public String aboutMyAuthor(@ModelAttribute Search search, HttpSession session ) {
-    String isitWotk = "dsdsa";
-    isitWotk = search.getPath();
-    session.setAttribute("dsa",isitWotk);
+        Names names = new Names();
+        Employments employments = new Employments();
+        String path = search.getPath();
+        List<String> emplo = new ArrayList<>();
+        StringBuffer sb = new StringBuffer();
+        GetPersonData dataAboutSelectedAuthor = names.getName(path);
+        GetEmployments myEmployments = employments.getEmployments(path);
+        session.setAttribute("aboutSelectedAuthor",dataAboutSelectedAuthor);
+        if(myEmployments.getEmploymentSummary() != null){
+            for(int i=0;i<myEmployments.getEmploymentSummary().size();i++){
+                if(myEmployments.getEmploymentSummary().get(i).getOrganization().getAddress().getCity() != null){
+                sb.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getAddress().getCity() + ", ");
+                }
+                if(myEmployments.getEmploymentSummary().get(i).getOrganization().getName() != null){
+                    sb.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getName()+", ");
+                }
+                if(myEmployments.getEmploymentSummary().get(i).getDepartmentName() != null){
+                    sb.append(myEmployments.getEmploymentSummary().get(i).getDepartmentName()+", ");
+                }
+                if(myEmployments.getEmploymentSummary().get(i).getStartDate() != null) {
+                    sb.append(myEmployments.getEmploymentSummary().get(i).getStartDate().getYear().getValue() + ":" +
+                            myEmployments.getEmploymentSummary().get(i).getStartDate().getMonth().getValue() + ":" +
+                            myEmployments.getEmploymentSummary().get(i).getStartDate().getDay().getValue() + "-");
+                    if (myEmployments.getEmploymentSummary().get(i).getEndDate() != null) {
+                        sb.append(myEmployments.getEmploymentSummary().get(i).getEndDate().getYear().getValue() + ":" +
+                                myEmployments.getEmploymentSummary().get(i).getEndDate().getMonth().getValue() + ":" +
+                                myEmployments.getEmploymentSummary().get(i).getEndDate().getDay().getValue() + ".");
+                    }
+                    sb.append("present.");
+                }
+                emplo.add(sb.toString());
+                sb.delete(0,sb.length());
+            }
+        }
 
+        session.setAttribute("employment",emplo);
         return "dataAboutAuthor";
     }
 

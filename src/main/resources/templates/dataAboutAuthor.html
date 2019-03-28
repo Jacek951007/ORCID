@@ -1,14 +1,24 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Found members</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>About author</h1>
+<h1 th:text=" 'About: ' + ${session.aboutSelectedAuthor.getName().getGivenNames().getValue()} +' '+
+${session.aboutSelectedAuthor.getName().getFamilyName().getValue()}"></h1>
+<h2 th:if="${session.aboutSelectedAuthor.getBiography() != null}">Biography</h2>
+<p th:if="${session.aboutSelectedAuthor.getBiography() != null}" th:text="${session.aboutSelectedAuthor.getBiography().getContent()}"></p>
+<p></p>
+<h2 th:if="${session.employment != null}">Employment</h2>
+<div th:if="${session.employment != null}" th:each="emp: ${session.employment}">
 
-<p th:text="'id: ' + ${session.dsa}"></p>
+    <p  th:if="${session.employment != null}" th:text="${emp}"></p>
 
+</div>
+
+</div>
 <a href="/search">Search another member</a>
 </body>
 </html>

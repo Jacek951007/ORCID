@@ -10,14 +10,15 @@
 
 <div th:each="names: ${session.authors}">
 
-    <p th:onclick="'javascript:myFunction(\'' + ${names.getPath()} + '\');'" th:id="${names.getPath()}" th:text="'Name: ' + ${names.getName().getGivenNames().getValue()} +' '+ ${names.getName().getFamilyName().getValue()}
+    <p th:onclick="'javascript:myFunction(\'' + ${names.getPath()} + '\');'" th:id="${names.getPath()}" th:text="'Name: '
+    + ${names.getName().getGivenNames().getValue()} +' '+ ${names.getName().getFamilyName().getValue()}
      +', ORCID ID: '+${names.getName().getPath()}"> </p>
 
 </div>
 
 <form action="#" th:action="@{/dataAboutAuthor}" th:object="${search}" method="post">
 
-    <p>More details about author<input type="text" id="myLabel" th:field="*{path}" /></p>
+    <p>More details about author: <input type="text" id="myLabel" th:field="*{path}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 
