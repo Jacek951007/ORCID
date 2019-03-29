@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,7 +31,9 @@ public class SearchController {
 
         model.addAttribute("search",new Search());
         return "search";
+
     }
+
 
     @PostMapping("/foundAuthors")
     public String aboutAuthors(@ModelAttribute Search search, HttpSession session){
@@ -41,7 +44,7 @@ public class SearchController {
                 .scheme("https").host("pub.orcid.org").path("/v2.1/search")
                 .queryParam("Authorization", token)
                 .queryParam("q", expression)
-                .build(true);
+                .build(false);
         GetContentDTO orcidPath = new RestTemplate().getForObject(uriComponents.toUriString(), GetContentDTO.class);
 
 
@@ -94,6 +97,17 @@ public class SearchController {
 
         session.setAttribute("employment",emplo);
         return "dataAboutAuthor";
+    }
+    @PostMapping("/works")
+    public String allWorks(@ModelAttribute Search search, HttpSession session){
+        Names names = new Names();
+        String path = search.getPath();
+        Date mydate = search.getWorksSince();
+       // System.out.println(search.getWorksSince().toString());
+
+
+        session.setAttribute("path", path);
+        return "works";
     }
 
 

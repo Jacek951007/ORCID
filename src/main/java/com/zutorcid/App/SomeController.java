@@ -79,7 +79,7 @@ public class SomeController {
         GetWorks works = new GetWorks();
         System.out.println();
   //      for(int i=0;i<paths.size();i++) {
-            worksWWholeString = works.getWorks(paths.get(3));
+
 //}
         StringBuilder onecode = new StringBuilder();
 
