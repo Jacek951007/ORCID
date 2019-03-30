@@ -8,23 +8,23 @@ public class Search {
     private String expression;
     private String foundElement;
 private String path;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date worksSince;
-    private Date worksTo;
 
-    public Date getWorksSince() {
+    private String worksSince;
+    private String worksTo;
+
+    public String getWorksSince() {
         return worksSince;
     }
 
-    public void setWorksSince(Date worksSince) {
+    public void setWorksSince(String worksSince) {
         this.worksSince = worksSince;
     }
 
-    public Date getWorksTo() {
+    public String getWorksTo() {
         return worksTo;
     }
 
-    public void setWorksTo(Date worksTo) {
+    public void setWorksTo(String worksTo) {
         this.worksTo = worksTo;
     }
 

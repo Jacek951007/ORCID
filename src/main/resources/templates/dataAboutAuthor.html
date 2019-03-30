@@ -15,12 +15,12 @@ ${session.aboutSelectedAuthor.getName().getFamilyName().getValue()}"></h1>
 <div th:if="${session.employment != null}" th:each="emp: ${session.employment}">
     <p  th:if="${session.employment != null}" th:text="${emp}"></p>
 </div>
-<form action="#" th:action="@{/dataAboutAuthor}" th:object="${search}" method="post">
+<form action="#" th:action="@{/works}" th:object="${search}" method="post">
     <p>Works</p>
-    <p>Works since: <input th:field="*{worksSince}" type="Date" /></p>
-    <p>Works to: <input th:field="*{worksTo}" type="Date" /></p>
+    <p>Works since: <input th:field="*{worksSince}" type="date" /></p>
+    <p>Works to: <input th:field="*{worksTo}" type="date" /></p>
+    <input type="hidden" name="paramName" th:value="${session.path}" th:field="*{path}"/>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
-</div>
 </body>
 </html>

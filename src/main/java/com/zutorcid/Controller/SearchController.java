@@ -1,6 +1,7 @@
 package com.zutorcid.Controller;
 
 import com.zutorcid.Employments.GetEmployments;
+import com.zutorcid.Employments.Year;
 import com.zutorcid.Path.GetContentDTO;
 import com.zutorcid.Person.GetPersonData;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
+import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +39,7 @@ public class SearchController {
 
     @PostMapping("/foundAuthors")
     public String aboutAuthors(@ModelAttribute Search search, HttpSession session){
+
         Names names = new Names();
         List<GetPersonData> allAuthors = new ArrayList<>();
         String expression = search.getExpression();
@@ -59,7 +62,8 @@ public class SearchController {
     }
 
     @PostMapping("/dataAboutAuthor")
-    public String aboutMyAuthor(@ModelAttribute Search search, HttpSession session ) {
+    public String aboutMyAuthor(@ModelAttribute Search search, HttpSession session) {
+
         Names names = new Names();
         Employments employments = new Employments();
         String path = search.getPath();
@@ -100,13 +104,17 @@ public class SearchController {
     }
     @PostMapping("/works")
     public String allWorks(@ModelAttribute Search search, HttpSession session){
-        Names names = new Names();
+
+
         String path = search.getPath();
-        Date mydate = search.getWorksSince();
+        System.out.println(path);
+        Names names = new Names();
+
+        String mydate = search.getWorksSince();
        // System.out.println(search.getWorksSince().toString());
 
 
-        session.setAttribute("path", path);
+
         return "works";
     }
 
