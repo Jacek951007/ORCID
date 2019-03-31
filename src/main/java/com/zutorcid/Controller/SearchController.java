@@ -109,6 +109,9 @@ public class SearchController {
         String path = search.getPath();
         System.out.println(path);
         Names names = new Names();
+        String firstName= names.getName(path).getName().getGivenNames().getValue();
+        CreateJSON cj = new CreateJSON();
+        cj.JSON(firstName);
 
         String mydate = search.getWorksSince();
        // System.out.println(search.getWorksSince().toString());
