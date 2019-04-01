@@ -1,5 +1,6 @@
-package com.zutorcid.Controller;
+package com.zutorcid.App;
 
+import com.zutorcid.Controller.*;
 import com.zutorcid.Employments.GetEmployments;
 import com.zutorcid.Employments.Year;
 import com.zutorcid.Path.GetContentDTO;
@@ -22,7 +23,7 @@ import java.util.List;
 
 
 @Controller
-public class SearchController {
+public class    SearchController {
 
 
     Token myToken = new Token();
@@ -68,34 +69,34 @@ public class SearchController {
         Employments employments = new Employments();
         String path = search.getPath();
         List<String> emplo = new ArrayList<>();
-        StringBuffer sb = new StringBuffer();
+        StringBuffer createEmploymentString = new StringBuffer();
         GetPersonData dataAboutSelectedAuthor = names.getName(path);
         GetEmployments myEmployments = employments.getEmployments(path);
         session.setAttribute("aboutSelectedAuthor",dataAboutSelectedAuthor);
         if(myEmployments.getEmploymentSummary() != null){
             for(int i=0;i<myEmployments.getEmploymentSummary().size();i++){
                 if(myEmployments.getEmploymentSummary().get(i).getOrganization().getAddress().getCity() != null){
-                sb.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getAddress().getCity() + ", ");
+                createEmploymentString.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getAddress().getCity() + ", ");
                 }
                 if(myEmployments.getEmploymentSummary().get(i).getOrganization().getName() != null){
-                    sb.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getName()+", ");
+                    createEmploymentString.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getName()+", ");
                 }
                 if(myEmployments.getEmploymentSummary().get(i).getDepartmentName() != null){
-                    sb.append(myEmployments.getEmploymentSummary().get(i).getDepartmentName()+", ");
+                    createEmploymentString.append(myEmployments.getEmploymentSummary().get(i).getDepartmentName()+", ");
                 }
                 if(myEmployments.getEmploymentSummary().get(i).getStartDate() != null) {
-                    sb.append(myEmployments.getEmploymentSummary().get(i).getStartDate().getYear().getValue() + ":" +
+                    createEmploymentString.append(myEmployments.getEmploymentSummary().get(i).getStartDate().getYear().getValue() + ":" +
                             myEmployments.getEmploymentSummary().get(i).getStartDate().getMonth().getValue() + ":" +
                             myEmployments.getEmploymentSummary().get(i).getStartDate().getDay().getValue() + "-");
                     if (myEmployments.getEmploymentSummary().get(i).getEndDate() != null) {
-                        sb.append(myEmployments.getEmploymentSummary().get(i).getEndDate().getYear().getValue() + ":" +
+                        createEmploymentString.append(myEmployments.getEmploymentSummary().get(i).getEndDate().getYear().getValue() + ":" +
                                 myEmployments.getEmploymentSummary().get(i).getEndDate().getMonth().getValue() + ":" +
                                 myEmployments.getEmploymentSummary().get(i).getEndDate().getDay().getValue() + ".");
                     }
-                    sb.append("present.");
+                    createEmploymentString.append("present.");
                 }
-                emplo.add(sb.toString());
-                sb.delete(0,sb.length());
+                emplo.add(createEmploymentString.toString());
+                createEmploymentString.delete(0,createEmploymentString.length());
             }
         }
 
@@ -105,13 +106,33 @@ public class SearchController {
     @PostMapping("/works")
     public String allWorks(@ModelAttribute Search search, HttpSession session){
 
-
         String path = search.getPath();
         System.out.println(path);
         Names names = new Names();
         String firstName= names.getName(path).getName().getGivenNames().getValue();
+
         CreateJSON cj = new CreateJSON();
         cj.JSON(firstName);
+
+        int yearStart = Integer.parseInt(search.getWorksSince().substring(0,4).toString());
+        int yearEnd = Integer.parseInt(search.getWorksTo().substring(0,4).toString());
+        List<String> putCodes = new ArrayList<>();
+        GetWorks getPutCodes = new GetWorks();
+        String putCode = getPutCodes.getWorks(path,yearStart,yearEnd);
+
+        StringBuffer onePutCode = new StringBuffer();
+
+        for(int i=0;i<putCode.length();i++){
+            if(Character.isDigit(putCode.charAt(i))){
+                onePutCode.append(putCode.charAt(i));
+            }
+            else if(putCode.charAt(i)==','){
+                putCodes.add(onePutCode.toString());
+                onePutCode.delete(0,onePutCode.length());
+            }
+        }
+
+        
 
         String mydate = search.getWorksSince();
        // System.out.println(search.getWorksSince().toString());
