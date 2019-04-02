@@ -25,11 +25,11 @@ public class GetWorks {
 
 
         for (int i = 0; i < allWorks.getGroup().size(); i++) {
-            if (Integer.valueOf(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue())
+            /*if (Integer.valueOf(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue())
                     >= yearStart && Integer.valueOf(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue())
-                    <= yearEnd) {
+                    <= yearEnd) {*/
                 putCode.add(Integer.valueOf(allWorks.getGroup().get(i).getWorkSummary().get(0).getPutCode()));
-            }
+           // }
         }
         return putCode;
     }
