@@ -77,7 +77,7 @@ public class    SearchController {
             for(int i=0;i<myEmployments.getEmploymentSummary().size();i++){
                 if(myEmployments.getEmploymentSummary().get(i).getOrganization().getAddress().getCity() != null){
                 createEmploymentString.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getAddress().getCity() + ", ");
-                }
+                }   q
                 if(myEmployments.getEmploymentSummary().get(i).getOrganization().getName() != null){
                     createEmploymentString.append(myEmployments.getEmploymentSummary().get(i).getOrganization().getName()+", ");
                 }

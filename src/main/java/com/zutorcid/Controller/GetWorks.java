@@ -26,7 +26,8 @@ class GetWorks {
 
         int workYear=0;
 
-         if(allWorks.getGroup() != null) {
+        assert allWorks != null;
+        if(allWorks.getGroup() != null) {
              for(int i=0;i<allWorks.getGroup().size();i++){
                  if(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate() != null && allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear() != null) {
                      workYear = Integer.parseInt(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue());
