@@ -6,33 +6,27 @@
 
 </head>
 <body>
-<h1>Authors</h1>
+    <h1>Authors</h1>
 
-<div th:each="names: ${session.authors}">
+    <div th:each="names: ${session.authors}">
+        <p th:onclick="'javascript:myFunction(\'' + ${names.getPath()} + '\');'" th:id="${names.getPath()}" th:text="'Name: '
+        + ${names.getName().getGivenNames().getValue()} +' '+ ${names.getName().getFamilyName().getValue()}
+        +', ORCID ID: '+${names.getName().getPath()}"> </p>
+    </div>
 
-    <p th:onclick="'javascript:myFunction(\'' + ${names.getPath()} + '\');'" th:id="${names.getPath()}" th:text="'Name: '
-    + ${names.getName().getGivenNames().getValue()} +' '+ ${names.getName().getFamilyName().getValue()}
-     +', ORCID ID: '+${names.getName().getPath()}"> </p>
+    <form action="#" th:action="@{/dataAboutAuthor}" th:object="${search}" method="post">
+        <p>More details about author: <input type="text" id="myLabel" th:field="*{path}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 
-</div>
+    <a href="/search">Search another member</a>
 
-<form action="#" th:action="@{/dataAboutAuthor}" th:object="${search}" method="post">
-
-    <p>More details about author: <input type="text" id="myLabel" th:field="*{path}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
-
-
-<a href="/search">Search another member</a>
-<script>
-
-     function myFunction(id) {
-        var toLabel = document.getElementById(id).id;
-        var orcid = toLabel.substring(1,20);
-        document.getElementById("myLabel").value = orcid;
-
-
-    }
-</script>
+    <script>
+        function myFunction(id) {
+            var toLabel = document.getElementById(id).id;
+            var orcid = toLabel.substring(1,20);
+            document.getElementById("myLabel").value = orcid;
+        }
+    </script>
 </body>
 </html>

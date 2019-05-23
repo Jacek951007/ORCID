@@ -12,6 +12,7 @@ token.txt
 .settings
 .springBeans
 .sts4-cache
+src/main/java/com.zutorcid/Controller/Token.java
 
 ### IntelliJ IDEA ###
 .idea

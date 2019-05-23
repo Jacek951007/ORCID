@@ -6,8 +6,12 @@
 
 </head>
 <body>
-<p th:text="${session.input.getOrcid()}">ss</p>
 
+<<div th:each="work: ${session.works}">
+    <p th:text="'Title: ' + ${work.getBulk().get(0).getWork().getTitle().getTitle().getValue()}"> </p>
+    <p th:text="'Part of ISSN: ' + ${work.getBulk().get(0).getWork().getExternalIds().getExternalId().get(0).getExternalIdValue()}"> </p>
+    <p th:text="'DOI: ' + ${work.getBulk().get(0).getWork().getExternalIds().getExternalId().get(1).getExternalIdValue()}"> </p>
+</div>
 
 </body>
 </html>
