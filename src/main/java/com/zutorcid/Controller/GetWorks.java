@@ -15,7 +15,6 @@ public class GetWorks {
         String token = myToken.getToken();
 
 
-
         List<Integer> putCode = new ArrayList<>();
 
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
@@ -24,20 +23,20 @@ public class GetWorks {
                 .build(true);
         GetAllWorks allWorks = new RestTemplate().getForObject(uriComponents.toUriString(), GetAllWorks.class);
 
-        int workYear=0;
+        int workYear = 0;
 
         assert allWorks != null;
-        if(allWorks.getGroup() != null) {
-             for(int i=0;i<allWorks.getGroup().size();i++){
-                 if(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate() != null &&
-                         allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear() != null) {
-                     workYear = Integer.parseInt(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue());
-                 }
+        if (allWorks.getGroup() != null) {
+            for (int i = 0; i < allWorks.getGroup().size(); i++) {
+                if (allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate() != null &&
+                        allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear() != null) {
+                    workYear = Integer.parseInt(allWorks.getGroup().get(i).getWorkSummary().get(0).getPublicationDate().getYear().getValue());
+                }
                 if (workYear >= yearStart && workYear <= yearEnd) {
                     putCode.add(allWorks.getGroup().get(i).getWorkSummary().get(0).getPutCode());
                 }
-             }
-         }
+            }
+        }
         return putCode;
     }
 }
